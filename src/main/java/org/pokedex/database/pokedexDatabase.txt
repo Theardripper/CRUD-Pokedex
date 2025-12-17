@@ -1,0 +1,9 @@
+use pokedex
+
+db.createCollection("pokemons")
+
+db.createCollection("users")
+
+db.pokemons.insertOne({"name": "Pichu", "type": "Eletrico", "weight": 2.0, "height": 0.3 })
+
+db.users.insertOne({"email": "user@email.com", "passwordHash": "123456", "name": "userTest" })
