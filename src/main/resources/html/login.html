@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.ico">
+    <meta charset="UTF-8">
+    <title>Login - Pokédex</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="background-elements">
+    <div class="pokemon-art art-top-right"></div>
+    <div class="pokemon-art art-bottom-left"></div>
+</div>
+
+<div class="form-container">
+    <h1>Entrar</h1>
+    <form id="loginForm">
+        <label>Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label>Senha:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit" class="button form-submit-button">Entrar</button>
+    </form>
+
+    <p class="nav-link">Não tem conta? <a href="register.html">Registrar</a></p>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch("/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("logado", "true");
+                    localStorage.setItem("usuario", data.name || "Treinador");
+                    window.location.href = "pokedex.html";
+                } else {
+                    alert(data.error || "Usuário ou senha incorretos!");
+                }
+            } catch (err) {
+                alert("Erro ao conectar ao servidor.");
+                console.error(err);
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

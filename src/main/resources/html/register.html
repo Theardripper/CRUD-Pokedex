@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <meta charset="UTF-8">
+    <title>Registrar - Pokédex</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="background-elements">
+    <div class="pokemon-art art-top-left"></div>
+    <div class="pokemon-art art-bottom-right"></div>
+</div>
+
+<div class="form-container">
+    <h1>Registrar</h1>
+    <form id="registerForm">
+        <label>Nome:</label>
+        <input type="text" name="name" required />
+
+        <label>Email:</label>
+        <input type="email" name="email" required />
+
+        <label>Senha:</label>
+        <input type="password" name="password" required minlength="6" />
+
+        <button type="submit" class="button form-submit-button">Registrar</button>
+    </form>
+    <p class="nav-link">Já tem conta? <a href="login.html">Entrar</a></p>
+</div>
+<script src="/register.js"></script>
+</body>
+</html>

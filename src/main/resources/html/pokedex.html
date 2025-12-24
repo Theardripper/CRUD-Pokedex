@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.ico">
+    <meta charset="UTF-8">
+    <title>Pokédex - Minhas Capturas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<script>
+    if (localStorage.getItem('logado') !== 'true') {
+        window.location.href = 'login.html';
+    }
+</script>
+
+<div class="pokedex-container">
+    <button onclick="logout()" class="button logout-button">Sair</button>
+
+    <h1>Pokédex - Minhas Capturas</h1>
+
+    <form id="form-pokemon" class="add-pokemon-area">
+        <input type="text" id="name" placeholder="Nome do Pokémon" required>
+        <input type="text" id="type" placeholder="Tipo" required>
+        <input type="text" id="weight" placeholder="Peso" required>
+        <input type="text" id="height" placeholder="Altura" required>
+        <button type="submit" class="button adicionar-button">Adicionar</button>
+    </form>
+
+    <ul id="pokemon-list" class="pokemon-list"></ul>
+</div>
+
+<script src="app.js"></script>
+<script>
+    function logout() {
+        fetch('/api/logout').then(() => {
+            localStorage.removeItem('logado');
+            localStorage.removeItem('usuario');
+            window.location.href = 'login.html';
+        });
+    }
+</script>
+</body>
+</html>
