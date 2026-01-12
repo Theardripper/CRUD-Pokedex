@@ -13,21 +13,28 @@ import java.util.Optional;
 
 public class StaticFileHandler {
 
-    private static final String RESOURCES_BASE = "src/main/resources/";
+    private static final String RESOURCES_BASE = "src/main/resources/html";
     private static final String IMG_BASE = RESOURCES_BASE + "img/";
+    private static final String BASE_DIR = "src/main/resources/";
+
 
     public static void register(HttpServer server) {
-        // Arquivos na raiz de resources (HTML, CSS, JS)
-        serveFile(server, "/", RESOURCES_BASE + "login.html", "text/html");
-        serveFile(server, "/login", RESOURCES_BASE + "login.html", "text/html");
-        serveFile(server, "/register", RESOURCES_BASE + "register.html", "text/html");
-        serveFile(server, "/pokedex.html", RESOURCES_BASE + "pokedex.html", "text/html");
-        serveFile(server, "/style.css", RESOURCES_BASE + "style.css", "text/css");
-        serveFile(server, "/app.js", RESOURCES_BASE + "app.js", "application/javascript");
-        serveFile(server, "/login.js", RESOURCES_BASE + "login.js", "application/javascript");
-        serveFile(server, "/register.js", RESOURCES_BASE + "register.js", "application/javascript");
+        // HTMLs (estão na pasta html)
+        serveFile(server, "/", BASE_DIR + "html/login.html", "text/html");
+        serveFile(server, "/login", BASE_DIR + "html/login.html", "text/html");
+        serveFile(server, "/register", BASE_DIR + "html/register.html", "text/html");
+        serveFile(server, "/pokedex", BASE_DIR + "html/pokedex.html", "text/html");
 
-        server.createContext("/img/", new GenericFileHandler(IMG_BASE, "/img/"));
+        // CSS (está na pasta css)
+        serveFile(server, "/css/style.css", BASE_DIR + "css/style.css", "text/css");
+
+        // JS (estão na pasta js)
+        serveFile(server, "/js/app.js", BASE_DIR + "js/app.js", "application/javascript");
+        serveFile(server, "/js/login.js", BASE_DIR + "js/login.js", "application/javascript");
+        serveFile(server, "/js/register.js", BASE_DIR + "js/register.js", "application/javascript");
+
+        // Imagens (usando seu Handler genérico)
+        server.createContext("/img/", new GenericFileHandler(BASE_DIR + "img/", "/img/"));
     }
 
     static class GenericFileHandler implements HttpHandler {
